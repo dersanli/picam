@@ -95,12 +95,12 @@ To use key-based SSH from your development machine:
 
 ```bash
 # On your dev machine
-ssh-copy-id -i ~/.ssh/your_key.pub devrim@<pi-ip>
+ssh-copy-id -i ~/.ssh/your_key.pub <your-username>@<pi-ip>
 ```
 
 Connect with:
 ```bash
-ssh -i ~/.ssh/your_key -o IdentitiesOnly=yes devrim@<pi-ip>
+ssh -i ~/.ssh/your_key -o IdentitiesOnly=yes <your-username>@<pi-ip>
 ```
 
 ### 6. Python Virtual Environment
