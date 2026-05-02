@@ -165,7 +165,7 @@ Press `q` to quit.
 
 The Touch Display 2 is portrait (720×1280). The camera captures landscape at 640×480. Each frame is:
 1. Annotated with bounding boxes and labels by `modlib`'s `Annotator`
-2. Rotated 90° clockwise with `cv2.ROTATE_90_CLOCKWISE`
+2. Rotated 180° with `cv2.ROTATE_180`
 3. Resized to 720×1280 and shown fullscreen
 
 ### Frame Rate
