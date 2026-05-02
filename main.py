@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 from modlib.apps import Annotator
 from modlib.devices import AiCamera
 from modlib.models.zoo import SSDMobileNetV2FPNLite320x320
@@ -6,6 +7,18 @@ from modlib.models.zoo import SSDMobileNetV2FPNLite320x320
 DISPLAY_WIDTH = 720
 DISPLAY_HEIGHT = 1280
 CONFIDENCE = 0.55
+
+
+def fit_to_display(img, target_w, target_h):
+    h, w = img.shape[:2]
+    scale = min(target_w / w, target_h / h)
+    new_w, new_h = int(w * scale), int(h * scale)
+    resized = cv2.resize(img, (new_w, new_h))
+    canvas = np.zeros((target_h, target_w, 3), dtype=np.uint8)
+    y = (target_h - new_h) // 2
+    x = (target_w - new_w) // 2
+    canvas[y:y + new_h, x:x + new_w] = resized
+    return canvas
 
 
 def main():
@@ -28,7 +41,7 @@ def main():
 
             img = frame.image
             img = cv2.rotate(img, cv2.ROTATE_180)
-            img = cv2.resize(img, (DISPLAY_WIDTH, DISPLAY_HEIGHT))
+            img = fit_to_display(img, DISPLAY_WIDTH, DISPLAY_HEIGHT)
 
             cv2.imshow("picam", img)
             if cv2.waitKey(1) & 0xFF == ord("q"):
