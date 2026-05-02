@@ -40,7 +40,6 @@ def main():
             annotator.annotate_boxes(frame, detections, labels=labels, alpha=0.3, corner_radius=10)
 
             img = frame.image
-            img = cv2.rotate(img, cv2.ROTATE_180)
             img = fit_to_display(img, DISPLAY_WIDTH, DISPLAY_HEIGHT)
 
             cv2.imshow("picam", img)
