@@ -1,12 +1,23 @@
 import cv2
 import numpy as np
+import libcamera
 from modlib.apps import Annotator
 from modlib.devices import AiCamera
+from modlib.devices.ai_camera.libcamera_config import LibcameraConfig
 from modlib.models.zoo import SSDMobileNetV2FPNLite320x320
 
 DISPLAY_WIDTH = 720
 DISPLAY_HEIGHT = 1280
 CONFIDENCE = 0.55
+
+# Patch LibcameraConfig to apply 180° rotation at the sensor level
+_orig_libcamera_config_init = LibcameraConfig.__init__
+
+def _patched_libcamera_config_init(self, *args, **kwargs):
+    _orig_libcamera_config_init(self, *args, **kwargs)
+    self.camera_config["transform"] = libcamera.Transform(hflip=1, vflip=1)
+
+LibcameraConfig.__init__ = _patched_libcamera_config_init
 
 
 def fit_to_display(img, target_w, target_h):
