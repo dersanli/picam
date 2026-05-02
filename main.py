@@ -9,7 +9,7 @@ CONFIDENCE = 0.55
 
 
 def main():
-    device = AiCamera()
+    device = AiCamera(frame_rate=15)
     model = SSDMobileNetV2FPNLite320x320()
     device.deploy(model)
     annotator = Annotator(thickness=2, text_thickness=1, text_scale=0.4)
