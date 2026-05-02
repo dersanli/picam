@@ -52,7 +52,7 @@ def main():
     picam2.configure(config)
     picam2.start()
 
-    labels = imx500.get_labels()
+    labels = imx500.network_intrinsics.labels
 
     cv2.namedWindow("picam", cv2.WND_PROP_FULLSCREEN)
     cv2.setWindowProperty("picam", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
